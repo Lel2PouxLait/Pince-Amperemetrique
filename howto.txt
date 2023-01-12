@@ -1,0 +1,4 @@
+Pour flasher la carte :
+$ make
+$ make flash
+$ sudo make term PORT=
