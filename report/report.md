@@ -38,3 +38,4 @@ par ex : la pince est réutilisable car ça ne tombe pas en panne
 ## Intégration faite (influxdb, home assistant...)
 
 ## Nombre lignes de code développé
+![Cloc](img/cloc.jpg)
