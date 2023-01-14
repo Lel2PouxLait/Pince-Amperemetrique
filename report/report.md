@@ -105,12 +105,12 @@ Le logiciel que contient actuellement notre prototype réalise principalement de
 de la carte. Pour plus des résultats plus proche de la réalité le programme calcule la moyenne sur 20 valeurs. Ensuite il faut convertir cette valeur numérique en une valeur correspondant
 au courant mesuré, pour cela nous avons réaliser au préalable différentes mesures à l'aide d'un wattmètre :
 
-![Wattmètre](img/wattmetre.jpg)
+![Wattmètre](img/wattmetre.jpeg)
 
 Ce wattmètre nous a permis de connaitre le courant utilisé à un instant et nous récupérions simultanément la valeur mesuré par notre carte LoRa. Grâce à cela nous avons tracé une droite
 de régression linéaire : 
 
-![Etalonnage](img/Etalonnage.jpg) 
+![Etalonnage](img/Etalonnage.png) 
 
 Le coefficient directeur de cette droite (315) nous permet dans notre programme de convertir la valeur lu sur l'entrée analogique en mA. 
 
