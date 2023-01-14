@@ -139,15 +139,38 @@ Nous pouvons retrouver les données de notre programme principal (main.c) sur l'
 Nous avons donc **129 lignes de code** effective. Le binaire qui résulte de la compilation de notre programme a une taille de **47,7 Ko**. Notre carte LoRa-e5 possède une memoire 
 flash de **256 Ko**, nous avons donc largement la place pour rajouter d'éventuelles nouvelles fonctionnalités.   
 
-## Instrumentation du système (cb de temps pour mesure courant, cb tps pour envoie des datas)
-
 ## Estimation durée de vie batterie
 Pour la démonstration de fonctionnement de notre produit, des messages LoRa sont envoyés toutes les 20 secondes après la mesure de courant. Dans cette configuration là, l'estimateur de durée de vie de batterie en ligne https://mclimate.eu/pages/lorawan-battery-calculator nous indique une durée de fonctionnement de 6 mois pour une batterie de 3500mAh. Cependant, dans un mode de fonctionnement nominal, nous mesurerions le courant toutes les 20 secondes avant d'effectuer une transmission LoRa toutes les 20 minutes, de cette manière la batterie durerait beaucoup plus longtemps.
 
 ## Analyse cycle de vie du produit
 par ex : la pince est réutilisable car ça ne tombe pas en panne
+Actuellement notre prototype a un impact limité sur l'environnement, rien n'est particulièrement polluant. De plus la pince ampèremétrique, étant composé de pratiquement uniquement un aimant, n'est à priori pas sensible à d'enventuelle panne et a temps de vie relativement long.  
+
+Cependant si nous poussons plus loin le projet, nous aurons à produire un boitier contenant le matériel. La solution la plus économique est de créer les boitiers à partir de plastiques ce qui résulte forcement à un fort impact écologique. Une solution serait d'utiliser du bois mais cela augmenterait fortement les coûts de production. Il faudra également prendre en compte l'impact de la batterie, c'est sans aucun doute l'élément le plus polluant. Elles sont composées de matière première polluante et ne sont pas recyclable. 
 
 ## Avantage et inconvénient des produits concurrents
 
 ## Intégration faite (influxdb, home assistant...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
