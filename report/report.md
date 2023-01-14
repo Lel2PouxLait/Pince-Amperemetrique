@@ -101,11 +101,14 @@ membres de l'alliance, nous n'aurons donc à priori pas à payer de license supp
 
 ## Proposition d'implémentation du logiciel embarqué (quel OS...)
 
+Afin d'utiliser notre carte LoRa-e5 nous avons choisis d'utiliser RIOT. RIOT est un système d'exploitation open-source specialisé pour l'IOT. Notre carte étant déjà implementé dans cet OS nous avons pu facilement avoir une bonne configuration de la carte. Nous avons donc pu facilement compiler un premier programme d'exemple d'utilisation de LoRa. 
+
 ## Format des messages LoRaWan envoyé
 Le contenu d'un message LoRaWan est structuré comme suit :
 ![loraframe](img/loraframe.png)
 
 Les messages que l'on envoie sont encodés dans la partie **payload**. Ce message est uniquement composé d'une chaîne de caractère correspondant à la valeur (en mA) de courant mesurée par la pince. La taille du message variera donc en fonction de la valeur mesurée. Par exemple, si la valeur mesurée par la pince est de 100mA, il faudra 3 octets pour coder la chaîne de caractère "100". Evidemment, ceci n'est pas optimal car avec 8 bits nous aurions pu coder directement la valeur 100. A la place on a préféré par simplicité pour le prototype transformer "100" en chaîne de caractère.
+
 
 ## Logiciel embarqué (Ce qu'on a concrètement fait)
 
@@ -121,11 +124,20 @@ de régression linéaire :
 
 Le coefficient directeur de cette droite (315) nous permet dans notre programme de convertir la valeur donnée par le CAN en une valeur de courant en mA. 
 
+
 Une fois la valeur du courant récupérée, le programme l'envoie sur le réseau LoRa. Après un premier échange d'authentification avec la gateway, notre prototype mesure le courant puis envoie un message contenant la valeur de celui-ci et cela, toutes les 20 secondes. A noter que ceci est un mode de démonstration, le mode nominal de fonctionnement du produit enverrai des messages toutes les 20 minutes pour avoir un meilleur rendement énergétique. 
 
 Actuellement notre prototype n'est pas extremement précis, puisque l'on observe toujours un écart d'environ 15-20% entre la valeur mesurée par le Wattmetre et notre système. Comme cette erreur est constante, il ne s'agit que d'un offset, donc cela vient probablement de notre étalonnage qui n'est pas exact. L'avantage est qu'une erreur d'offset se règle très facilement logiciellement.
 
 ## Métrique du logiciel embarqué (nb ligne, taille binaire...)
+
+Tout notre projet est codé en C, nous nous sommes basé sur le système d'exploitation RIOT.
+Nous pouvons retrouver les données de notre programme principal (main.c) sur l'image suivant :
+
+![Cloc](img/cloc.jpg)
+
+Nous avons donc **129 lignes de code** effective. Le binaire qui résulte de la compilation de notre programme a une taille de **47,7 Ko**. Notre carte LoRa-e5 possède une memoire 
+flash de **256 Ko**, nous avons donc largement la place pour rajouter d'éventuelles nouvelles fonctionnalités.   
 
 ## Instrumentation du système (cb de temps pour mesure courant, cb tps pour envoie des datas)
 
@@ -139,5 +151,3 @@ par ex : la pince est réutilisable car ça ne tombe pas en panne
 
 ## Intégration faite (influxdb, home assistant...)
 
-## Nombre lignes de code développé
-![Cloc](img/cloc.jpg)
