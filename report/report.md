@@ -66,6 +66,13 @@ Le graphe ci-dessous montre les tensions que l'on pourrait mesurer respectivemen
 
 En résumé, sur la résistance (**zone 4**), la tension est quasi-continue, donc facilement utilisable sur un microcontrôleur.
 
+En pratique, le montage du pont de diode, connecté à la carte LoRa-E5 est comme cela :
+![montage](img/Montage.jpg)
+
+Et la tension alternative redressée à cette allure :
+
+![oscillo](img/Oscillo.jpg)
+
 ### Flashage de la carte
 La carte Lora-E5-Dev-Board n'est pas équipée d'un st-link, donc nous utilisons le st-link de la carte STM32-FO-DISCOVERY comme pont permettant de flasher la E5.
 
@@ -152,6 +159,13 @@ Pour la démonstration de fonctionnement de notre produit, des messages LoRa son
 
 ## Analyse cycle de vie du produit
 par ex : la pince est réutilisable car ça ne tombe pas en panne
+Actuellement notre prototype a un impact limité sur l'environnement, rien n'est particulièrement polluant. De plus la pince ampèremétrique, étant composé de pratiquement uniquement un aimant, n'est à priori pas sensible à d'enventuelle panne et a temps de vie relativement long.  
+
+Cependant si nous poussons plus loin le projet, nous aurons à produire un boitier contenant le matériel. La solution la plus économique est de créer les boitiers à partir de plastiques ce qui résulte forcement à un fort impact écologique. Une solution serait d'utiliser du bois mais cela augmenterait fortement les coûts de production. Il faudra également prendre en compte l'impact de la batterie, c'est sans aucun doute l'élément le plus polluant. Elles sont composées de matière première polluante et ne sont pas recyclable. 
 
 ## Avantage et inconvénient des produits concurrents
 Les produits concurrent sont plus polyvalents dans le sens où ils peuvent mesurer des courants beaucoup plus important que notre produit. En effet, notre produit ne peut lire sur ses PINS d'entrées que des tensions infèrieure à sa tension d'alimentation (soit 3,3V). Néanmoins, cela devrait être suffisant pour mesurer des courants jusqu'à 2-3A (testé jusqu'à 1,5 ampères). Pour une utilisation générale notre produit est donc autant performant que ceux des concurrents. Par contre, notre pince connectée à un avantage énorme niveau prix puisqu'on l'estime comme étant environ 13 fois moins chère que certaines pinces ampéremétriques connectées.
+
+
+## Conclusion
+En conclusion, dans le cadre de ce projet, nous avons réalisé un système de mesure de courant connecté à l'aide d'une pince ampèremétrique. Ce système communique via le réseau LoRaWan. L'analyse du marché a montré qu'il existe peu de pinces connectées utilisant ce type de communication, et que celles-ci sont généralement chères. Notre système a une architecture simple qui permet de réguler la tension en sortie de la pince et de communiquer cette mesure sur le réseau LoRaWan. Nous avons également pris en compte la sécurité du système en utilisant un algorithme de chiffrement pour éviter les interceptions de données sensibles. Ce projet a été une opportunité pour nous de mettre en pratique nos connaissances en IOT et de découvrir de nouveaux outils tels que la carte LoRa-E5 Dev Board et RIOT OS.
