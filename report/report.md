@@ -14,6 +14,17 @@ La pince nous permettra de mesurer le courant, la carte Lora communiquera sur le
 
 ## Analyse du marché
 
+De nombreux fabricants proposent differents modèles de pince ampèremetrique. La plupart sont munis d'un écran affichant directement la valeur du courant mesuré. 
+Il existe également plusieurs pinces ampèremetriques fonctionnent dans le cadre de la domotique qui utiliser diffèrents type de communication notemment en Bluetooth et 
+en LoraWan. Cependant ce genre de pince connectées sont relativement cher, environ 190€ pour la pince Lora. 
+
+L'utilisation principale d'une pince ampèremetrique est la surveillance de consommation. Que ce soit dans un contexte privé ou industriel la consomation éléctrique est un enjeu de 
+plus en plus d'actualité pour des raisons écologiques et économiques. On peut également imaginer une utilisation de maintenance qui permettrait de verifier à distance la consommation ou l'eventuel
+arrêt d'un appareil.  
+
+Il existe donc pour l'instant qu'un nombre limité de pinces ampèremetriques connecté et un nombre encore plus limité utilisant le réseau Lora. Ce projet est donc tout à fait perspicace 
+et pourrais permettre de rendre plus accessible la mesure de courant via le Lora.
+
 ## Architecture globale du système
 Notre système à une architecture globale relativement simple. On peut la voir comme une succession de 5 blocs :
 ![Image de l'architectue globale du système](img/systeme_global.png)
@@ -22,7 +33,7 @@ Comme on peut le voir sur la figure ci-dessus, le premier bloc serait la pince a
 
 Dans cette architecture, nous aurons principalement à travailler sur le bloc de traitement du signal et à développer le code permettant à la carte de communiquer sur le réseau Lora.
 
-## Sécurité globale
+## Sécurité globale 
 
 ## Respect de la vie privée du service
 
@@ -71,6 +82,7 @@ Voici la liste exaustive des composants nécessaire à la fabrication de notre p
 Ainsi, on obtient que pour une production de **5000 unités** de notre produit, il faudrait compter **125 300€**. En sachant que dans cette somme, on compte **83% du coût lié à la carte Lora-E5-dev-board**. En effet, cette carte n'est faite que pour du prototypage, donc en admettant que l'on fasse concevoir une carte électronique dédiée, on devrait pouvoir économiser beaucoup d'argent. Si une carte Lora-E5-dev-board coûte **21€** en prix de gros, on estime qu'une carte dédiée devrait pouvoir être produite pour **moins de 10€**. Ainsi, notre produit coûterai à l'unité **14,6€**, soit une somme de **73 000€ pour 5000 unités**.
 
 Comme vu précèdemment dans la partie analyse de marché, les pinces ampéremétrique classique coûte environ **50€** et les prix s'envolent pour des pinces connectées au réseau Lora, jusqu'à **190€**. En arrondissant notre coût de production à **15€** l'unité (pour une production de 5000 unités), notre produit est donc **13x** moins cher qu'une pince connectée !
+
 ## Coût certification ETSI 
 
 ## Coût de certification LoRa alliance
