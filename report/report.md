@@ -33,9 +33,15 @@ Comme on peut le voir sur la figure ci-dessus, le premier bloc serait la pince a
 
 Dans cette architecture, nous aurons principalement à travailler sur le bloc de traitement du signal et à développer le code permettant à la carte de communiquer sur le réseau Lora.
 
-## Sécurité globale 
+## Sécurité globale
+Pour assurer la transmission par n'importe quel canal sans fil, il est important de mettre en place un système de chiffrement pour éviter que les données soient interceptées par un attaquant. Dans notre cas, les données que l'on transmet sont assez sensibles puisque connaître la consommation d'une maison par exemple, peut permettre de savoir si des personnes sont présentes à l'intérieur ou non, et potentiellement la cambrioler.
+
+Nous comptons mettre en place une activation LoRaWan de type OTAA (Over The Air Activation). Ce type d'activation crée un canal de communication chiffré par AES128. Les communications de notre produit seront donc chiffrées et personne ne pourra les interpréter sans la clé de chiffrement.
 
 ## Respect de la vie privée du service
+Le RGPD implique que l'utilisateur soient au courant des données conservée pour le fonctionnement du produit, du traitement de ses données et qu'il puisse en demander la suppression.
+
+Dans notre cas, notre produit ne conserve aucune informations une fois le message LoRa envoyé, et il n'envoie aucun autre message que celui contenant la courant mesuré par la pince. Le produit étant clairement vendu comme communiquant, l'utilisateur est aussi mis au courant sans ambiguité que des données lui appartenant passent par le réseau LoRaWan. Néanmoins, il est l'unique destinataire de ces messages ce qui ne pose pas de problèmes de respect de la vie privée.
 
 ## Architecture matérielle de l'objet
 ### Bloc de traitement du signal
@@ -69,7 +75,7 @@ La carte Lora-E5-Dev-Board n'est pas équipée d'un st-link, donc nous utilisons
 ## Coût de production
 Voici la liste exaustive des composants nécessaire à la fabrication de notre produit ainsi que les prix à l'unité et de gros associés :
 
-|Materiel|Cout unitaire|Cout de gros (5000 unités)|Cout pour 5000 unités produites|
+|Materiel|Coût unitaire|Coût unitaire de gros (5000 unités)|Cout pour 5000 unités produites|
 |---    |:-:    |:-:    |:-:    |
 |Lora-E5-Dev-Board|30€|21€|105 000€|
 |Pince YHDC SCT-013-000|3€|2,1€|12 000€|
@@ -81,7 +87,7 @@ Voici la liste exaustive des composants nécessaire à la fabrication de notre p
 
 Ainsi, on obtient que pour une production de **5000 unités** de notre produit, il faudrait compter **125 300€**. En sachant que dans cette somme, on compte **83% du coût lié à la carte Lora-E5-dev-board**. En effet, cette carte n'est faite que pour du prototypage, donc en admettant que l'on fasse concevoir une carte électronique dédiée, on devrait pouvoir économiser beaucoup d'argent. Si une carte Lora-E5-dev-board coûte **21€** en prix de gros, on estime qu'une carte dédiée devrait pouvoir être produite pour **moins de 10€**. Ainsi, notre produit coûterai à l'unité **14,6€**, soit une somme de **73 000€ pour 5000 unités**.
 
-Comme vu précèdemment dans la partie analyse de marché, les pinces ampéremétrique classique coûte environ **50€** et les prix s'envolent pour des pinces connectées au réseau Lora, jusqu'à **190€**. En arrondissant notre coût de production à **15€** l'unité (pour une production de 5000 unités), notre produit est donc **13x** moins cher qu'une pince connectée !
+Comme vu précèdemment dans la partie analyse de marché, les pinces ampéremétrique classique coûte environ **50€** et les prix s'envolent pour des pinces connectées au réseau Lora, jusqu'à **190€**. En arrondissant notre coût de production à **15€** l'unité (pour prendre en compte le coût de fabrication d'un boitier en plastique), notre produit est donc **13x** moins cher qu'une pince connectée !
 
 ## Coût certification ETSI 
 
@@ -91,8 +97,6 @@ Comme vu précèdemment dans la partie analyse de marché, les pinces ampéremé
 
 ## Format des messages LoRaWan voulu
 
-## Electronique nécessaire pour le fonctionnement du produit
-
 ## Logiciel embarqué (Ce qu'on a concrètement fait)
 
 ## Métrique du logiciel embarqué (nb ligne, taille binaire...)
@@ -100,6 +104,7 @@ Comme vu précèdemment dans la partie analyse de marché, les pinces ampéremé
 ## Instrumentation du système (cb de temps pour mesure courant, cb tps pour envoie des datas)
 
 ## Estimation durée de vie batterie
+Pour la démonstration de fonctionnement de notre produit, des messages LoRa sont envoyés toutes les 20 secondes après la mesure de courant. Dans cette configuration là, l'estimateur de durée de vie de batterie en ligne https://mclimate.eu/pages/lorawan-battery-calculator nous indique une durée de fonctionnement de 6 mois pour une batterie de 3500mAh. Cependant, dans un mode de fonctionnement nominal, nous mesurerions le courant toutes les 20 secondes avant d'effectuer une transmission LoRa toutes les 20 minutes, de cette manière la batterie durerait beaucoup plus longtemps.
 
 ## Analyse cycle de vie du produit
 par ex : la pince est réutilisable car ça ne tombe pas en panne
