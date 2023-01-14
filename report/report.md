@@ -105,7 +105,7 @@ membres de l'alliance, nous n'aurons donc à priori pas à payer de license supp
 Le contenu d'un message LoRaWan est structuré comme suit :
 ![loraframe](img/loraframe.png)
 
-Les messages que l'on envoie sont encodés dans la partie **payload**. Ce message est uniquement composé d'une valeur numérique correspondant à la valeur (en mA) de courant mesurée par la pince.
+Les messages que l'on envoie sont encodés dans la partie **payload**. Ce message est uniquement composé d'une chaîne de caractère correspondant à la valeur (en mA) de courant mesurée par la pince. La taille du message variera donc en fonction de la valeur mesurée. Par exemple, si la valeur mesurée par la pince est de 100mA, il faudra 3 octets pour coder la chaîne de caractère "100". Evidemment, ceci n'est pas optimal car avec 8 bits nous aurions pu coder directement la valeur 100. A la place on a préféré par simplicité pour le prototype transformer "100" en chaîne de caractère.
 
 ## Logiciel embarqué (Ce qu'on a concrètement fait)
 
