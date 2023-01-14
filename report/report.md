@@ -1,5 +1,10 @@
 # Rapport de projet IOT - Pince ampèremétrique connectée
 
+## Introduction
+
+Dans le cadre de nos études à Polytech Grenoble dans la filière IESE nous avons du réaliser des projets IOT en binôme. Le projet qu'il nous a été proposé a pour objectif de mesurer le courant 
+passant dans un fil à l'aide d'un pince ampérometrique et de communiquer cette mesure grâce à du LoraWan.  
+
 ## Analyse du marché
 
 ## Architecture globale du système
