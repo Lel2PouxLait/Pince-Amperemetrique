@@ -3,8 +3,8 @@ Antoine Loubersanes - Julien Beltrame IESE5
 
 ## Introduction
 
-Dans le cadre de nos études à Polytech Grenoble dans la filière IESE nous avons du réaliser des projets IOT en binôme. Le projet qu'il nous a été proposé a pour objectif de mesurer le courant 
-passant dans un fil à l'aide d'un pince ampèremétrique et de communiquer cette mesure grâce à du LoraWan. Pour cela il nous a été fournis : 
+Dans le cadre de nos études à Polytech Grenoble dans la filière IESE nous avons du réaliser des projets IOT en binôme. Le projet qui nous a été proposé a pour objectif de mesurer le courant 
+passant dans un fil à l'aide d'un pince ampèremétrique et de communiquer cette mesure grâce a une communication LoraWan. Pour cela il nous a été fournis : 
 
 - Une pince ampèremetrique YHDC SCT-013-000
 - Une carte LoRa-E5 Dev Board
@@ -154,3 +154,4 @@ Pour la démonstration de fonctionnement de notre produit, des messages LoRa son
 par ex : la pince est réutilisable car ça ne tombe pas en panne
 
 ## Avantage et inconvénient des produits concurrents
+Les produits concurrent sont plus polyvalents dans le sens où ils peuvent mesurer des courants beaucoup plus important que notre produit. En effet, notre produit ne peut lire sur ses PINS d'entrées que des tensions infèrieure à sa tension d'alimentation (soit 3,3V). Néanmoins, cela devrait être suffisant pour mesurer des courants jusqu'à 2-3A (testé jusqu'à 1,5 ampères). Pour une utilisation générale notre produit est donc autant performant que ceux des concurrents. Par contre, notre pince connectée à un avantage énorme niveau prix puisqu'on l'estime comme étant environ 13 fois moins chère que certaines pinces ampéremétriques connectées.
