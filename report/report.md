@@ -33,9 +33,15 @@ Comme on peut le voir sur la figure ci-dessus, le premier bloc serait la pince a
 
 Dans cette architecture, nous aurons principalement à travailler sur le bloc de traitement du signal et à développer le code permettant à la carte de communiquer sur le réseau Lora.
 
-## Sécurité globale 
+## Sécurité globale
+Pour assurer la transmission par n'importe quel canal sans fil, il est important de mettre en place un système de chiffrement pour éviter que les données soient interceptées par un attaquant. Dans notre cas, les données que l'on transmet sont assez sensibles puisque connaître la consommation d'une maison par exemple, peut permettre de savoir si des personnes sont présentes à l'intérieur ou non, et potentiellement la cambrioler.
+
+Nous comptons mettre en place une activation LoRaWan de type OTAA (Over The Air Activation). Ce type d'activation crée un canal de communication chiffré par AES128. Les communications de notre produit seront donc chiffrées et personne ne pourra les interpréter sans la clé de chiffrement.
 
 ## Respect de la vie privée du service
+Le RGPD implique que l'utilisateur soient au courant des données conservée pour le fonctionnement du produit, du traitement de ses données et qu'il puisse en demander la suppression.
+
+Dans notre cas, notre produit ne conserve aucune informations une fois le message LoRa envoyé, et il n'envoie aucun autre message que celui contenant la courant mesuré par la pince. Le produit étant clairement vendu comme communiquant, l'utilisateur est aussi mis au courant sans ambiguité que des données lui appartenant passent par le réseau LoRaWan. Néanmoins, il est l'unique destinataire de ces messages ce qui ne pose pas de problèmes de respect de la vie privée.
 
 ## Architecture matérielle de l'objet
 ### Bloc de traitement du signal
@@ -69,7 +75,7 @@ La carte Lora-E5-Dev-Board n'est pas équipée d'un st-link, donc nous utilisons
 ## Coût de production
 Voici la liste exaustive des composants nécessaire à la fabrication de notre produit ainsi que les prix à l'unité et de gros associés :
 
-|Materiel|Cout unitaire|Cout de gros (5000 unités)|Cout pour 5000 unités produites|
+|Materiel|Coût unitaire|Coût unitaire de gros (5000 unités)|Cout pour 5000 unités produites|
 |---    |:-:    |:-:    |:-:    |
 |Lora-E5-Dev-Board|30€|21€|105 000€|
 |Pince YHDC SCT-013-000|3€|2,1€|12 000€|
@@ -81,7 +87,7 @@ Voici la liste exaustive des composants nécessaire à la fabrication de notre p
 
 Ainsi, on obtient que pour une production de **5000 unités** de notre produit, il faudrait compter **125 300€**. En sachant que dans cette somme, on compte **83% du coût lié à la carte Lora-E5-dev-board**. En effet, cette carte n'est faite que pour du prototypage, donc en admettant que l'on fasse concevoir une carte électronique dédiée, on devrait pouvoir économiser beaucoup d'argent. Si une carte Lora-E5-dev-board coûte **21€** en prix de gros, on estime qu'une carte dédiée devrait pouvoir être produite pour **moins de 10€**. Ainsi, notre produit coûterai à l'unité **14,6€**, soit une somme de **73 000€ pour 5000 unités**.
 
-Comme vu précèdemment dans la partie analyse de marché, les pinces ampéremétrique classique coûte environ **50€** et les prix s'envolent pour des pinces connectées au réseau Lora, jusqu'à **190€**. En arrondissant notre coût de production à **15€** l'unité (pour une production de 5000 unités), notre produit est donc **13x** moins cher qu'une pince connectée !
+Comme vu précèdemment dans la partie analyse de marché, les pinces ampéremétrique classique coûte environ **50€** et les prix s'envolent pour des pinces connectées au réseau Lora, jusqu'à **190€**. En arrondissant notre coût de production à **15€** l'unité (pour prendre en compte le coût de fabrication d'un boitier en plastique), notre produit est donc **13x** moins cher qu'une pince connectée !
 
 ## Coût certification ETSI 
 
@@ -97,30 +103,31 @@ membres de l'alliance, nous n'aurons donc à priori pas à payer de license supp
 
 Afin d'utiliser notre carte LoRa-e5 nous avons choisis d'utiliser RIOT. RIOT est un système d'exploitation open-source specialisé pour l'IOT. Notre carte étant déjà implementé dans cet OS nous avons pu facilement avoir une bonne configuration de la carte. Nous avons donc pu facilement compiler un premier programme d'exemple d'utilisation de LoRa. 
 
-## Format des messages LoRaWan voulu
+## Format des messages LoRaWan envoyé
+Le contenu d'un message LoRaWan est structuré comme suit :
+![loraframe](img/loraframe.png)
 
-## Electronique nécessaire pour le fonctionnement du produit
+
+Les messages que l'on envoie sont encodés dans la partie **payload**. Ce message est uniquement composé d'une valeur numérique correspondant à la valeur (en mA) de courant mesurée par la pince.
 
 ## Logiciel embarqué (Ce qu'on a concrètement fait)
 
-Le logiciel que contient actuellement notre prototype réalise principalement deux choses. Tout d'abord il utilise le convertisseur analogique numérique pour lire la tension de l'entrée analogique
-de la carte. Pour plus des résultats plus proche de la réalité le programme calcule la moyenne sur 20 valeurs. Ensuite il faut convertir cette valeur numérique en une valeur correspondant
-au courant mesuré, pour cela nous avons réaliser au préalable différentes mesures à l'aide d'un wattmètre :
+Le logiciel que contient actuellement notre prototype réalise principalement deux choses. Tout d'abord il utilise le convertisseur analogique numérique de la carte LoRa-E5 pour lire la tension en sortie du redresseur de tension que l'on a mise sur l'une de ses entrées analogique. Pour obtenir des résultats plus proche de la réalité, le programme calcule la moyenne sur 20 valeurs et la conserve. Ensuite il faut convertir cette valeur numérique issue du CAN en une valeur correspondant
+au courant mesuré. Pour cela nous avons réaliser au préalable différentes mesures à l'aide d'un wattmètre afin de réaliser une courbe d'étalonnage de notre système:
 
 ![Wattmètre](img/wattmetre.jpeg)
 
-Ce wattmètre nous a permis de connaitre le courant utilisé à un instant et nous récupérions simultanément la valeur mesuré par notre carte LoRa. Grâce à cela nous avons tracé une droite
+Ce wattmètre nous a permis de connaitre le courant consommé à un instant t et nous récupérions simultanément la valeur mesuré par le CAN de notre carte LoRa. Grâce à cela nous avons tracé une droite
 de régression linéaire : 
 
 ![Etalonnage](img/Etalonnage.png) 
 
-Le coefficient directeur de cette droite (315) permet à notre programme de convertir la valeur lu sur l'entrée analogique en mA. 
+Le coefficient directeur de cette droite (315) nous permet dans notre programme de convertir la valeur donnée par le CAN en une valeur de courant en mA. 
 
-Une fois la valeur du courant récupérer le programme l'envoie ensuite sur le réseau LoRa. Après un premier échange d'authentification sur la gateway notre prototype envoie toutes les 
-20 secondes un message contenant la valeur du courant mesuré. 
 
-Actuellement notre prototype n'est pas extremement précis, en effet nous avons toujours un écart d'environ 15-20%. Cette erreur vient probablement de notre étalonnage qui n'est pas 
-parfait. 
+Une fois la valeur du courant récupérée, le programme l'envoie sur le réseau LoRa. Après un premier échange d'authentification avec la gateway, notre prototype mesure le courant puis envoie un message contenant la valeur de celui-ci et cela, toutes les 20 secondes. A noter que ceci est un mode de démonstration, le mode nominal de fonctionnement du produit enverrai des messages toutes les 20 minutes pour avoir un meilleur rendement énergétique. 
+
+Actuellement notre prototype n'est pas extremement précis, puisque l'on observe toujours un écart d'environ 15-20% entre la valeur mesurée par le Wattmetre et notre système. Comme cette erreur est constante, il ne s'agit que d'un offset, donc cela vient probablement de notre étalonnage qui n'est pas exact. L'avantage est qu'une erreur d'offset se règle très facilement logiciellement.
 
 ## Métrique du logiciel embarqué (nb ligne, taille binaire...)
 
@@ -135,6 +142,7 @@ flash de **256 Ko**, nous avons donc largement la place pour rajouter d'éventue
 ## Instrumentation du système (cb de temps pour mesure courant, cb tps pour envoie des datas)
 
 ## Estimation durée de vie batterie
+Pour la démonstration de fonctionnement de notre produit, des messages LoRa sont envoyés toutes les 20 secondes après la mesure de courant. Dans cette configuration là, l'estimateur de durée de vie de batterie en ligne https://mclimate.eu/pages/lorawan-battery-calculator nous indique une durée de fonctionnement de 6 mois pour une batterie de 3500mAh. Cependant, dans un mode de fonctionnement nominal, nous mesurerions le courant toutes les 20 secondes avant d'effectuer une transmission LoRa toutes les 20 minutes, de cette manière la batterie durerait beaucoup plus longtemps.
 
 ## Analyse cycle de vie du produit
 par ex : la pince est réutilisable car ça ne tombe pas en panne
