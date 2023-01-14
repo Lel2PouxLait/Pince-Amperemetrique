@@ -88,9 +88,9 @@ Comme vu précèdemment dans la partie analyse de marché, les pinces ampéremé
 ## Coût de certification LoRa alliance
 
 Afin de faire certifier notre produit par la LoRa Alliance, il est nécecessaire de faire partie de la Lora Alliance et de faire passer le test de certification à notre produit.
-Pour faire partie de l'alliance il faut payer des frais à hauteur de 10 000$, soit environ 9 200€. Cependant une license du LCTT (LoRaWan Certification Test Tool) est gratuitement donnée aux 
-membres de l'alliance, nous n'aurons donc à priori pas à payer de license supplémentaire. Il ne restera donc à payer que les frais de certification de produit qui coûtent 1000$, soit en environ 
-920€. Il faut donc compter 10 120€ pour faire certifier notre produit, en partant du principe que l'on ne fait pas partie de la LoRa alliance
+Pour faire partie de l'alliance il faut payer des frais à hauteur de **10 000$**, soit environ **9 200€**. Cependant une license du LCTT (LoRaWan Certification Test Tool) est gratuitement donnée aux 
+membres de l'alliance, nous n'aurons donc à priori pas à payer de license supplémentaire. Il ne restera donc à payer que les frais de certification de produit qui coûtent **1000$**, soit en environ 
+920€. Il faut donc compter **10 120€** pour faire certifier notre produit, en partant du principe que l'on ne fait pas partie de la LoRa alliance
 
 
 ## Proposition d'implémentation du logiciel embarqué (quel OS...)
@@ -100,6 +100,25 @@ membres de l'alliance, nous n'aurons donc à priori pas à payer de license supp
 ## Electronique nécessaire pour le fonctionnement du produit
 
 ## Logiciel embarqué (Ce qu'on a concrètement fait)
+
+Le logiciel que contient actuellement notre prototype réalise principalement deux choses. Tout d'abord il utilise le convertisseur analogique numérique pour lire la tension de l'entrée analogique
+de la carte. Pour plus des résultats plus proche de la réalité le programme calcule la moyenne sur 20 valeurs. Ensuite il faut convertir cette valeur numérique en une valeur correspondant
+au courant mesuré, pour cela nous avons réaliser au préalable différentes mesures à l'aide d'un wattmètre :
+
+![Wattmètre](img/wattmetre.jpg)
+
+Ce wattmètre nous a permis de connaitre le courant utilisé à un instant et nous récupérions simultanément la valeur mesuré par notre carte LoRa. Grâce à cela nous avons tracé une droite
+de régression linéaire : 
+
+![Etalonnage](img/Etalonnage.jpg) 
+
+Le coefficient directeur de cette droite (315) nous permet dans notre programme de convertir la valeur lu sur l'entrée analogique en mA. 
+
+Une fois la valeur du courant récupérer le programme l'envoie ensuite sur le réseau LoRa. Après un premier échange d'authentification sur la gateway notre prototype envoie toutes les 
+20 secondes un message contenant la valeur du courant mesuré. 
+
+Actuellement notre prototype n'est pas extremement précis, en effet nous avons toujours un écart d'environ 15-20%. Cette erreur vient probablement de notre étalonnage qui n'est pas 
+parfait. 
 
 ## Métrique du logiciel embarqué (nb ligne, taille binaire...)
 
