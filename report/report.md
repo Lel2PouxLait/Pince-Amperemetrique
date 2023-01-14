@@ -13,6 +13,17 @@ La pince nous permettra de mesurer le courant, la carte Lora communiquera sur le
 
 ## Analyse du marché
 
+De nombreux fabricants proposent differents modèles de pince ampèremetrique. La plupart sont munis d'un écran affichant directement la valeur du courant mesuré. 
+Il existe également plusieurs pinces ampèremetriques fonctionnent dans le cadre de la domotique qui utiliser diffèrents type de communication notemment en Bluetooth et 
+en LoraWan. Cependant ce genre de pince connectées sont relativement cher, environ 190€ pour la pince Lora. 
+
+L'utilisation principale d'une pince ampèremetrique est la surveillance de consommation. Que ce soit dans un contexte privé ou industriel la consomation éléctrique est un enjeu de 
+plus en plus d'actualité pour des raisons écologiques et économiques. On peut également imaginer une utilisation de maintenance qui permettrait de verifier à distance la consommation ou l'eventuel
+arrêt d'un appareil.  
+
+Il existe donc pour l'instant qu'un nombre limité de pinces ampèremetriques connecté et un nombre encore plus limité utilisant le réseau Lora. Ce projet est donc tout à fait perspicace 
+et pourrais permettre de rendre plus accessible la mesure de courant via le Lora.
+
 ## Architecture globale du système
 
 ## Sécurité globale
@@ -22,6 +33,8 @@ La pince nous permettra de mesurer le courant, la carte Lora communiquera sur le
 ## Architecture matérielle de l'objet
 
 ## Coût de production
+
+
 
 ## Coût certification ETSI 
 
