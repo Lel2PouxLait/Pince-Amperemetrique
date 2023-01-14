@@ -50,10 +50,27 @@ Le graphe ci-dessous montre les tensions que l'on pourrait mesurer respectivemen
 En résumé, sur la résistance (**zone 4**), la tension est quasi-continue, donc facilement utilisable sur un microcontrôleur.
 
 ### Flashage de la carte
+La carte Lora-E5-Dev-Board n'est pas équipée d'un st-link, donc nous utilisons le st-link de la carte STM32-FO-DISCOVERY comme pont permettant de flasher la E5.
+
+![stlink](img/Cablage_stlink.jpg)
 
 
 ## Coût de production
+Voici la liste exaustive des composants nécessaire à la fabrication de notre produit ainsi que les prix à l'unité et de gros associés :
 
+|Materiel|Cout unitaire|Cout de gros (5000 unités)|Cout pour 5000 unités produites|
+|---    |:-:    |:-:    |:-:    |
+|Lora-E5-Dev-Board|30€|21€|105 000€|
+|Pince YHDC SCT-013-000|3€|2,1€|12 000€|
+|4 diodes|1,44€|0,815€|16 300€|
+|1 résistance 1000Ohms|0,0617€|0,0156€|78€|
+|1 super-condensateur 47uF35V|1,35€|0,945€|4 725€|
+|1 condensateur 100uF|0,93€|0,19€|950€|
+|Total|36€|25,06€|125 300€|
+
+Ainsi, on obtient que pour une production de **5000 unités** de notre produit, il faudrait compter **125 300€**. En sachant que dans cette somme, on compte **83% du coût lié à la carte Lora-E5-dev-board**. En effet, cette carte n'est faite que pour du prototypage, donc en admettant que l'on fasse concevoir une carte électronique dédiée, on devrait pouvoir économiser beaucoup d'argent. Si une carte Lora-E5-dev-board coûte **21€** en prix de gros, on estime qu'une carte dédiée devrait pouvoir être produite pour **moins de 10€**. Ainsi, notre produit coûterai à l'unité **14,6€**, soit une somme de **73 000€ pour 5000 unités**.
+
+Comme vu précèdemment dans la partie analyse de marché, les pinces ampéremétrique classique coûte environ **50€** et les prix s'envolent pour des pinces connectées au réseau Lora, jusqu'à **190€**. En arrondissant notre coût de production à **15€** l'unité (pour une production de 5000 unités), notre produit est donc **13x** moins cher qu'une pince connectée !
 ## Coût certification ETSI 
 
 ## Coût de certification LoRa alliance
