@@ -26,7 +26,7 @@ et pourrais permettre de rendre plus accessible la mesure de courant via le Lora
 
 ## Architecture globale du système
 
-## Sécurité globale
+## Sécurité globale 
 
 ## Respect de la vie privée du service
 
