@@ -1,6 +1,17 @@
 # Rapport de projet IOT - Pince ampèremétrique connectée
 Antoine Loubersanes - Julien Beltrame IESE5
 
+## Introduction
+
+Dans le cadre de nos études à Polytech Grenoble dans la filière IESE nous avons du réaliser des projets IOT en binôme. Le projet qu'il nous a été proposé a pour objectif de mesurer le courant 
+passant dans un fil à l'aide d'un pince ampèremetrique et de communiquer cette mesure grâce à du LoraWan. Pour cela il nous a été fournis : 
+
+- Une pince ampèremetrique YHDC SCT-013-000
+- Une carte Lora-E5 Dev Board
+- Une carte STM32FODISCOVERY
+
+La pince nous permettra de mesurer le courant, la carte Lora communiquera sur le réseau Lora et la carte STM nous permet grâce à son ST-LINK de flasher notre programme sur le carte Lora.
+
 ## Analyse du marché
 
 ## Architecture globale du système
