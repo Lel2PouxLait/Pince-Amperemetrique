@@ -79,31 +79,6 @@ La carte Lora-E5-Dev-Board n'est pas équipée d'un st-link, donc nous utilisons
 ![stlink](img/Cablage_stlink.jpg)
 
 
-## Coût de production
-Voici la liste exaustive des composants nécessaire à la fabrication de notre produit ainsi que les prix à l'unité et de gros associés :
-
-|Materiel|Coût unitaire|Coût unitaire de gros (5000 unités)|Coût pour 5000 unités produites|
-|---    |:-:    |:-:    |:-:    |
-|Lora-E5-Dev-Board|30€|21€|105 000€|
-|Pince YHDC SCT-013-000|3€|2,1€|12 000€|
-|4 diodes|1,44€|0,815€|16 300€|
-|1 résistance 1000Ohms|0,0617€|0,0156€|78€|
-|1 super-condensateur 47uF35V|1,35€|0,945€|4 725€|
-|1 condensateur 100uF|0,93€|0,19€|950€|
-|Total|36€|25,06€|125 300€|
-
-Ainsi, on obtient que pour une production de **5000 unités** de notre produit, il faudrait compter **125 300€**. En sachant que dans cette somme, on compte **83% du coût lié à la carte Lora-E5-dev-board**. En effet, cette carte n'est faite que pour du prototypage, donc en admettant que l'on fasse concevoir une carte électronique dédiée, on devrait pouvoir économiser beaucoup d'argent. Si une carte Lora-E5-dev-board coûte **21€** en prix de gros, on estime qu'une carte dédiée devrait pouvoir être produite pour **moins de 10€**. Ainsi, notre produit coûterai à l'unité **14,6€**, soit une somme de **73 000€ pour 5000 unités**.
-
-Comme vu précèdemment dans la partie analyse de marché, les pinces ampéremétrique classique coûte environ **50€** et les prix s'envolent pour des pinces connectées au réseau Lora, jusqu'à **190€**. En arrondissant notre coût de production à **15€** l'unité (pour prendre en compte le coût de fabrication d'un boitier en plastique), notre produit est donc **13x** moins cher qu'une pince connectée !
-
-## Coût de certification LoRa alliance
-
-Afin de faire certifier notre produit par la LoRa Alliance, il est nécecessaire de faire partie de la Lora Alliance et de faire passer le test de certification à notre produit.
-Pour faire partie de l'alliance il faut payer des frais à hauteur de **10 000$**, soit environ **9 200€**. Cependant une license du LCTT (LoRaWan Certification Test Tool) est gratuitement donnée aux 
-membres de l'alliance, nous n'aurons donc à priori pas à payer de license supplémentaire. Il ne restera donc à payer que les frais de certification de produit qui coûtent **1000$**, soit en environ 
-920€. Il faut donc compter **10 120€** pour faire certifier notre produit, en partant du principe que l'on ne fait pas partie de la LoRa alliance
-
-
 ## Proposition d'implémentation du logiciel embarqué (quel OS...)
 
 Afin d'utiliser notre carte LoRa-e5 nous avons choisis d'utiliser RIOT OS. RIOT OS est un système d’exploitation gratuit et open source dédié à l’internet des objets. L’avantage de cet OS est qu’il supporte la plupart des microcontrôleurs 32, 16 ou 8 bits en étant “user friendly”. En effet, l’utilisation de Riot nécessite des
@@ -123,7 +98,6 @@ Le contenu d'un message LoRaWan est structuré comme suit :
 ![loraframe](img/loraframe.png)
 
 Les messages que l'on envoie sont encodés dans la partie **payload**. Ce message est uniquement composé d'une chaîne de caractère correspondant à la valeur (en mA) de courant mesurée par la pince. La taille du message variera donc en fonction de la valeur mesurée. Par exemple, si la valeur mesurée par la pince est de 100mA, il faudra 3 octets pour coder la chaîne de caractère "100". Evidemment, ceci n'est pas optimal car avec 8 bits nous aurions pu coder directement la valeur 100. A la place on a préféré par simplicité pour le prototype transformer "100" en chaîne de caractère.
-
 
 ## Logiciel embarqué (Ce qu'on a concrètement fait)
 
@@ -152,7 +126,31 @@ Nous pouvons retrouver les données de notre programme principal (main.c) sur l'
 ![Cloc](img/cloc.jpg)
 
 Nous avons donc **129 lignes de code** effective. Le binaire qui résulte de la compilation de notre programme a une taille de **47,7 Ko**. Notre carte LoRa-e5 possède une memoire 
-flash de **256 Ko**, nous avons donc largement la place pour rajouter d'éventuelles nouvelles fonctionnalités.   
+flash de **256 Ko**, nous avons donc largement la place pour rajouter d'éventuelles nouvelles fonctionnalités.
+
+## Coût de production
+Voici la liste exaustive des composants nécessaire à la fabrication de notre produit ainsi que les prix à l'unité et de gros associés :
+
+|Materiel|Coût unitaire|Coût unitaire de gros (5000 unités)|Coût pour 5000 unités produites|
+|---    |:-:    |:-:    |:-:    |
+|Lora-E5-Dev-Board|30€|21€|105 000€|
+|Pince YHDC SCT-013-000|3€|2,1€|12 000€|
+|4 diodes|1,44€|0,815€|16 300€|
+|1 résistance 1000Ohms|0,0617€|0,0156€|78€|
+|1 super-condensateur 47uF35V|1,35€|0,945€|4 725€|
+|1 condensateur 100uF|0,93€|0,19€|950€|
+|Total|36€|25,06€|125 300€|
+
+Ainsi, on obtient que pour une production de **5000 unités** de notre produit, il faudrait compter **125 300€**. En sachant que dans cette somme, on compte **83% du coût lié à la carte Lora-E5-dev-board**. En effet, cette carte n'est faite que pour du prototypage, donc en admettant que l'on fasse concevoir une carte électronique dédiée, on devrait pouvoir économiser beaucoup d'argent. Si une carte Lora-E5-dev-board coûte **21€** en prix de gros, on estime qu'une carte dédiée devrait pouvoir être produite pour **moins de 10€**. Ainsi, notre produit coûterai à l'unité **14,6€**, soit une somme de **73 000€ pour 5000 unités**.
+
+Comme vu précèdemment dans la partie analyse de marché, les pinces ampéremétrique classique coûte environ **50€** et les prix s'envolent pour des pinces connectées au réseau Lora, jusqu'à **190€**. En arrondissant notre coût de production à **15€** l'unité (pour prendre en compte le coût de fabrication d'un boitier en plastique), notre produit est donc **13x** moins cher qu'une pince connectée !
+
+## Coût de certification LoRa alliance
+
+Afin de faire certifier notre produit par la LoRa Alliance, il est nécecessaire de faire partie de la Lora Alliance et de faire passer le test de certification à notre produit.
+Pour faire partie de l'alliance il faut payer des frais à hauteur de **10 000$**, soit environ **9 200€**. Cependant une license du LCTT (LoRaWan Certification Test Tool) est gratuitement donnée aux 
+membres de l'alliance, nous n'aurons donc à priori pas à payer de license supplémentaire. Il ne restera donc à payer que les frais de certification de produit qui coûtent **1000$**, soit en environ 
+920€. Il faut donc compter **10 120€** pour faire certifier notre produit, en partant du principe que l'on ne fait pas partie de la LoRa alliance.   
 
 ## Estimation durée de vie batterie
 Pour la démonstration de fonctionnement de notre produit, des messages LoRa sont envoyés toutes les 20 secondes après la mesure de courant. Dans cette configuration là, l'estimateur de durée de vie de batterie en ligne https://mclimate.eu/pages/lorawan-battery-calculator nous indique une durée de fonctionnement de 6 mois pour une batterie de 3500mAh. Cependant, dans un mode de fonctionnement nominal, nous mesurerions le courant toutes les 20 secondes avant d'effectuer une transmission LoRa toutes les 20 minutes, de cette manière la batterie durerait beaucoup plus longtemps.
