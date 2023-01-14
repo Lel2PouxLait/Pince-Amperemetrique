@@ -118,6 +118,11 @@ Une fois la valeur du courant récupérée, le programme l'envoie sur le réseau
 
 Actuellement notre prototype n'est pas extremement précis, puisque l'on observe toujours un écart d'environ 15-20% entre la valeur mesurée par le Wattmetre et notre système. Comme cette erreur est constante, il ne s'agit que d'un offset, donc cela vient probablement de notre étalonnage qui n'est pas exact. L'avantage est qu'une erreur d'offset se règle très facilement logiciellement.
 
+Concrètement, lorsque notre programme est en fonctionnement, nous avons l'affichage en direct dans le terminal des courants mesurés lorsque le message est envoyé :
+
+![terminal](img/terminal.png)
+
+
 ## Métrique du logiciel embarqué (nb ligne, taille binaire...)
 
 Tout notre projet est codé en C, nous nous sommes basé sur le système d'exploitation RIOT.
