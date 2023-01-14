@@ -95,6 +95,8 @@ membres de l'alliance, nous n'aurons donc à priori pas à payer de license supp
 
 ## Proposition d'implémentation du logiciel embarqué (quel OS...)
 
+Afin d'utiliser notre carte LoRa-e5 nous avons choisis d'utiliser RIOT. RIOT est un système d'exploitation open-source specialisé pour l'IOT. Notre carte étant déjà implementé dans cet OS nous avons pu facilement avoir une bonne configuration de la carte. Nous avons donc pu facilement compiler un premier programme d'exemple d'utilisation de LoRa. 
+
 ## Format des messages LoRaWan voulu
 
 ## Electronique nécessaire pour le fonctionnement du produit
@@ -112,7 +114,7 @@ de régression linéaire :
 
 ![Etalonnage](img/Etalonnage.png) 
 
-Le coefficient directeur de cette droite (315) nous permet dans notre programme de convertir la valeur lu sur l'entrée analogique en mA. 
+Le coefficient directeur de cette droite (315) permet à notre programme de convertir la valeur lu sur l'entrée analogique en mA. 
 
 Une fois la valeur du courant récupérer le programme l'envoie ensuite sur le réseau LoRa. Après un premier échange d'authentification sur la gateway notre prototype envoie toutes les 
 20 secondes un message contenant la valeur du courant mesuré. 
@@ -121,6 +123,14 @@ Actuellement notre prototype n'est pas extremement précis, en effet nous avons 
 parfait. 
 
 ## Métrique du logiciel embarqué (nb ligne, taille binaire...)
+
+Tout notre projet est codé en C, nous nous sommes basé sur le système d'exploitation RIOT.
+Nous pouvons retrouver les données de notre programme principal (main.c) sur l'image suivant :
+
+![Cloc](img/cloc.jpg)
+
+Nous avons donc **129 lignes de code** effective. Le binaire qui résulte de la compilation de notre programme a une taille de **47,7 Ko**. Notre carte LoRa-e5 possède une memoire 
+flash de **256 Ko**, nous avons donc largement la place pour rajouter d'éventuelles nouvelles fonctionnalités.   
 
 ## Instrumentation du système (cb de temps pour mesure courant, cb tps pour envoie des datas)
 
@@ -133,5 +143,3 @@ par ex : la pince est réutilisable car ça ne tombe pas en panne
 
 ## Intégration faite (influxdb, home assistant...)
 
-## Nombre lignes de code développé
-![Cloc](img/cloc.jpg)
