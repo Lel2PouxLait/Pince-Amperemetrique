@@ -101,28 +101,29 @@ membres de l'alliance, nous n'aurons donc à priori pas à payer de license supp
 
 ## Proposition d'implémentation du logiciel embarqué (quel OS...)
 
-## Format des messages LoRaWan voulu
+## Format des messages LoRaWan envoyé
+Le contenu d'un message LoRaWan est structuré comme suit :
+![loraframe](img/loraframe.png)
+
+Les messages que l'on envoie sont encodés dans la partie **payload**. Ce message est uniquement composé d'une valeur numérique correspondant à la valeur (en mA) de courant mesurée par la pince.
 
 ## Logiciel embarqué (Ce qu'on a concrètement fait)
 
-Le logiciel que contient actuellement notre prototype réalise principalement deux choses. Tout d'abord il utilise le convertisseur analogique numérique pour lire la tension de l'entrée analogique
-de la carte. Pour plus des résultats plus proche de la réalité le programme calcule la moyenne sur 20 valeurs. Ensuite il faut convertir cette valeur numérique en une valeur correspondant
-au courant mesuré, pour cela nous avons réaliser au préalable différentes mesures à l'aide d'un wattmètre :
+Le logiciel que contient actuellement notre prototype réalise principalement deux choses. Tout d'abord il utilise le convertisseur analogique numérique de la carte LoRa-E5 pour lire la tension en sortie du redresseur de tension que l'on a mise sur l'une de ses entrées analogique. Pour obtenir des résultats plus proche de la réalité, le programme calcule la moyenne sur 20 valeurs et la conserve. Ensuite il faut convertir cette valeur numérique issue du CAN en une valeur correspondant
+au courant mesuré. Pour cela nous avons réaliser au préalable différentes mesures à l'aide d'un wattmètre afin de réaliser une courbe d'étalonnage de notre système:
 
 ![Wattmètre](img/wattmetre.jpeg)
 
-Ce wattmètre nous a permis de connaitre le courant utilisé à un instant et nous récupérions simultanément la valeur mesuré par notre carte LoRa. Grâce à cela nous avons tracé une droite
+Ce wattmètre nous a permis de connaitre le courant consommé à un instant t et nous récupérions simultanément la valeur mesuré par le CAN de notre carte LoRa. Grâce à cela nous avons tracé une droite
 de régression linéaire : 
 
 ![Etalonnage](img/Etalonnage.png) 
 
-Le coefficient directeur de cette droite (315) nous permet dans notre programme de convertir la valeur lu sur l'entrée analogique en mA. 
+Le coefficient directeur de cette droite (315) nous permet dans notre programme de convertir la valeur donnée par le CAN en une valeur de courant en mA. 
 
-Une fois la valeur du courant récupérer le programme l'envoie ensuite sur le réseau LoRa. Après un premier échange d'authentification sur la gateway notre prototype envoie toutes les 
-20 secondes un message contenant la valeur du courant mesuré. 
+Une fois la valeur du courant récupérée, le programme l'envoie sur le réseau LoRa. Après un premier échange d'authentification avec la gateway, notre prototype mesure le courant puis envoie un message contenant la valeur de celui-ci et cela, toutes les 20 secondes. A noter que ceci est un mode de démonstration, le mode nominal de fonctionnement du produit enverrai des messages toutes les 20 minutes pour avoir un meilleur rendement énergétique. 
 
-Actuellement notre prototype n'est pas extremement précis, en effet nous avons toujours un écart d'environ 15-20%. Cette erreur vient probablement de notre étalonnage qui n'est pas 
-parfait. 
+Actuellement notre prototype n'est pas extremement précis, puisque l'on observe toujours un écart d'environ 15-20% entre la valeur mesurée par le Wattmetre et notre système. Comme cette erreur est constante, il ne s'agit que d'un offset, donc cela vient probablement de notre étalonnage qui n'est pas exact. L'avantage est qu'une erreur d'offset se règle très facilement logiciellement.
 
 ## Métrique du logiciel embarqué (nb ligne, taille binaire...)
 
