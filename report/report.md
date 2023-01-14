@@ -75,7 +75,7 @@ La carte Lora-E5-Dev-Board n'est pas équipée d'un st-link, donc nous utilisons
 ## Coût de production
 Voici la liste exaustive des composants nécessaire à la fabrication de notre produit ainsi que les prix à l'unité et de gros associés :
 
-|Materiel|Coût unitaire|Coût unitaire de gros (5000 unités)|Cout pour 5000 unités produites|
+|Materiel|Coût unitaire|Coût unitaire de gros (5000 unités)|Coût pour 5000 unités produites|
 |---    |:-:    |:-:    |:-:    |
 |Lora-E5-Dev-Board|30€|21€|105 000€|
 |Pince YHDC SCT-013-000|3€|2,1€|12 000€|
@@ -89,8 +89,6 @@ Ainsi, on obtient que pour une production de **5000 unités** de notre produit, 
 
 Comme vu précèdemment dans la partie analyse de marché, les pinces ampéremétrique classique coûte environ **50€** et les prix s'envolent pour des pinces connectées au réseau Lora, jusqu'à **190€**. En arrondissant notre coût de production à **15€** l'unité (pour prendre en compte le coût de fabrication d'un boitier en plastique), notre produit est donc **13x** moins cher qu'une pince connectée !
 
-## Coût certification ETSI 
-
 ## Coût de certification LoRa alliance
 
 Afin de faire certifier notre produit par la LoRa Alliance, il est nécecessaire de faire partie de la Lora Alliance et de faire passer le test de certification à notre produit.
@@ -101,7 +99,17 @@ membres de l'alliance, nous n'aurons donc à priori pas à payer de license supp
 
 ## Proposition d'implémentation du logiciel embarqué (quel OS...)
 
-Afin d'utiliser notre carte LoRa-e5 nous avons choisis d'utiliser RIOT. RIOT est un système d'exploitation open-source specialisé pour l'IOT. Notre carte étant déjà implementé dans cet OS nous avons pu facilement avoir une bonne configuration de la carte. Nous avons donc pu facilement compiler un premier programme d'exemple d'utilisation de LoRa. 
+Afin d'utiliser notre carte LoRa-e5 nous avons choisis d'utiliser RIOT OS. RIOT OS est un système d’exploitation gratuit et open source dédié à l’internet des objets. L’avantage de cet OS est qu’il supporte la plupart des microcontrôleurs 32, 16 ou 8 bits en étant “user friendly”. En effet, l’utilisation de Riot nécessite des
+outils tout à fait classiques : programmation en C, C++ ou Rust, gcc/gdb… et permet de porter le code produit sur plusieurs produits puisque l’OS est indépendant de
+l’hardware.
+
+![riotos](img/riotos.jpg)
+
+Pour permettre cette indépendance vis à vis du matériel, Riot utilise une première couche de code (cf. figure ci-dessus), propre à chaque
+microcontrôleur, avant de passer sur la couche applicative. Cette première couche “Hardware” fait partie du code source de Riot, lors de la
+compilation d’un programme, on doit indiquer pour quel microcontrôleur il doit-être compilé. En fonction de cela, le programme, une fois compilé, sera entièrement adapté au microcontrôleur en question. De même, RiotOS permet d’utiliser de nombreux dispositifs externes (capteurs, cartes filles…).
+
+Enfin, comme de nombreux exemples de programmes sont disponibles avec RIOT OS, nous avons pu facilement compiler le programme d'exemple de RIOT permettant l'utilisation de LoRa et envoyer nos premiers messages. 
 
 ## Format des messages LoRaWan envoyé
 Le contenu d'un message LoRaWan est structuré comme suit :
@@ -139,8 +147,6 @@ Nous pouvons retrouver les données de notre programme principal (main.c) sur l'
 Nous avons donc **129 lignes de code** effective. Le binaire qui résulte de la compilation de notre programme a une taille de **47,7 Ko**. Notre carte LoRa-e5 possède une memoire 
 flash de **256 Ko**, nous avons donc largement la place pour rajouter d'éventuelles nouvelles fonctionnalités.   
 
-## Instrumentation du système (cb de temps pour mesure courant, cb tps pour envoie des datas)
-
 ## Estimation durée de vie batterie
 Pour la démonstration de fonctionnement de notre produit, des messages LoRa sont envoyés toutes les 20 secondes après la mesure de courant. Dans cette configuration là, l'estimateur de durée de vie de batterie en ligne https://mclimate.eu/pages/lorawan-battery-calculator nous indique une durée de fonctionnement de 6 mois pour une batterie de 3500mAh. Cependant, dans un mode de fonctionnement nominal, nous mesurerions le courant toutes les 20 secondes avant d'effectuer une transmission LoRa toutes les 20 minutes, de cette manière la batterie durerait beaucoup plus longtemps.
 
@@ -148,6 +154,3 @@ Pour la démonstration de fonctionnement de notre produit, des messages LoRa son
 par ex : la pince est réutilisable car ça ne tombe pas en panne
 
 ## Avantage et inconvénient des produits concurrents
-
-## Intégration faite (influxdb, home assistant...)
-
