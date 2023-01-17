@@ -8,10 +8,10 @@ le dossier RIOT/examples/ de RiotOS.
 Voici l'architecture du dépot git :
 
 endpoint/  
--------├── src/                    # Code source
+-------├── src/                    # Code source  
 -------├── report/  
-----------------├── img/           #Dossier contenant les images utilisées dans le report.md
-----------------├── Flyer          #Flyer de notre produit
-----------------├── Presentation   #Diapo de présentation de notre produit
-----------------├── report.md      #Rapport au format markdown
+----------------├── img/           #Dossier contenant les images utilisées dans le report.md  
+----------------├── Flyer          #Flyer de notre produit  
+----------------├── Presentation   #Diapo de présentation de notre produit  
+----------------├── report.md      #Rapport au format markdown  
 
